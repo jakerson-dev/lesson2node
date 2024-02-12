@@ -1,21 +1,31 @@
 
 const express = require("express");
 const app = express();
-
+app.use(express.json());
+app.use(express.urlencoded());
 const PORT = 4000;
 
-app.get('/', (request, response) => {
-    const student = {
-        id: 134,
-        firstName: "Joe",
-        lastName: "Doe",
+//Route
+//GET
+//2 params (path, callback function (req,res))
+app.get('/user', (_, response) => {
+
+    const user = {
+        id: 1,
+        email: "johndoe@gmail.com"
     };
-    return response.status(200).json(student);
+
+
+    response.status(200).json(user.id);
 });
 
-app.post('/postRequest', (request, response) => {
-
-    return response.send('Hello This is POST');
+//POST
+app.post('/user/create',(request,response) => {
+    console.log(request.body);
+    response.status(200).json({
+        success: true,
+        status: 200
+    });
 });
 
 app.listen(PORT, () => {
